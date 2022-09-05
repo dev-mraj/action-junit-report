@@ -4,6 +4,25 @@ import {annotateTestResult, attachSummary} from './annotator'
 import {parseTestReports, TestResult} from './testParser'
 import {readTransformers, retrieve} from './utils'
 
+export async function runTest(): Promise<void> {
+  const testResult = await parseTestReports(
+    'checkName',
+    'summeryyy',
+    'lib/_report.xml',
+    '',
+    false,
+    false,
+    [],
+    '',
+    '',
+    []
+  )
+
+  testResult.annotations = testResult.annotations.filter(f => f.annotation_level != 'notice')
+
+  console.error(testResult)
+}
+
 export async function run(): Promise<void> {
   try {
     core.startGroup(`📘 Reading input values`)
